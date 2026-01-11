@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "description": "Baza znanych ścieżek do ogłoszeń środowiskowych - zweryfikowanych i działających",
+    "last_updated": "2026-01-11",
+    "total_verified": 25
+  },
+  "verified_sources": {
+    "wroclaw": {
+      "bip_url": "https://bip.um.wroc.pl",
+      "env_paths": [
+        "/artykuly/385/wydane-decyzje-o-srodowiskowych-uwarunkowaniach"
+      ],
+      "has_pagination": true,
+      "pagination_pattern": "?page={page}",
+      "selectors": {
+        "list": "table tbody tr, .article-list li",
+        "title": "a, .title",
+        "link": "a[href]",
+        "date": ".date, time"
+      },
+      "notes": "111 stron, format: /zawiadomienie-srodowiskowe/{id}/{znak-sprawy}"
+    },
+    "poznan": {
+      "bip_url": "https://bip.poznan.pl",
+      "env_paths": [
+        "/bip/dane-o-srodowisku-i-ochronie/W/"
+      ],
+      "has_pagination": true,
+      "pagination_pattern": "?strona={page}",
+      "has_api": true,
+      "api_url": "/api/wykaz-danych-o-srodowisku",
+      "selectors": {
+        "list": "table tbody tr",
+        "title": "td:nth-child(2)",
+        "link": "a[href]",
+        "date": "td:first-child"
+      },
+      "notes": "Ma API z danymi JSON, 4 strony paginacji"
+    },
+    "gdansk": {
+      "bip_url": "https://bip.gdansk.pl",
+      "env_paths": [
+        "/urzad-miejski/Decyzje-o-srodowiskowych-uwarunkowaniach,a,108376"
+      ],
+      "has_pagination": false,
+      "selectors": {
+        "list": ".article-content li, .article-content p",
+        "title": "a",
+        "link": "a[href]",
+        "date_regex": "\\d{1,2}\\.\\d{1,2}\\.\\d{4}"
+      },
+      "notes": "Format: [data] - [opis projektu]"
+    },
+    "katowice": {
+      "bip_url": "https://bip.katowice.eu",
+      "env_paths": [
+        "/ogloszenia/tablicaogloszen/default.aspx?idt=477"
+      ],
+      "has_pagination": true,
+      "pagination_pattern": "&PageNo={page}",
+      "selectors": {
+        "list": ".ogloszenie, table tr",
+        "title": "a, .title",
+        "link": "a[href]",
+        "date": ".date"
+      },
+      "notes": "Kategoria 477 = Ochrona środowiska"
+    },
+    "szczecin": {
+      "bip_url": "https://bip.um.szczecin.pl",
+      "env_paths": [
+        "/chapter_11089.asp"
+      ],
+      "has_pagination": true,
+      "selectors": {
+        "list": ".article-list li, table tr",
+        "title": "a",
+        "link": "a[href]",
+        "date": ".date"
+      }
+    },
+    "krakow": {
+      "bip_url": "https://www.bip.krakow.pl",
+      "env_paths": [
+        "/?dok_id=30618"
+      ],
+      "has_pagination": true,
+      "selectors": {
+        "list": ".document-list li, table tr",
+        "title": "a",
+        "link": "a[href]"
+      },
+      "notes": "Rejestr decyzji środowiskowych"
+    }
+  },
+  "rdos_paths": {
+    "rdos-warszawa": {
+      "base_url": "https://www.gov.pl/web/rdos-warszawa",
+      "paths_by_year": {
+        "2026": "/obwieszczenia-i-zawiadomienia-rok-2026",
+        "2025": "/obwieszczenia-i-zawiadomienia-rok-2025"
+      },
+      "selectors": {
+        "list": "article, .article-area article, li",
+        "title": "h2 a, h3 a, a",
+        "link": "a[href]",
+        "date": ".date, time"
+      }
+    },
+    "rdos-gdansk": {
+      "base_url": "https://www.gov.pl/web/rdos-gdansk",
+      "paths_by_year": {
+        "2026": "/rok-2026",
+        "2025": "/rok-2025"
+      }
+    },
+    "rdos-krakow": {
+      "base_url": "https://www.gov.pl/web/rdos-krakow",
+      "paths": ["/obwieszczenia-i-zawiadomienia"]
+    },
+    "rdos-poznan": {
+      "base_url": "https://www.gov.pl/web/rdos-poznan",
+      "paths": ["/obwieszczenia-i-zawiadomienia"]
+    },
+    "rdos-wroclaw": {
+      "base_url": "https://www.gov.pl/web/rdos-wroclaw",
+      "paths": ["/obwieszczenia-i-zawiadomienia"]
+    },
+    "rdos-katowice": {
+      "base_url": "https://www.gov.pl/web/rdos-katowice",
+      "paths": ["/obwieszczenia-i-zawiadomienia"]
+    },
+    "rdos-lodz": {
+      "base_url": "https://www.gov.pl/web/rdos-lodz",
+      "paths": ["/obwieszczenia-i-zawiadomienia"]
+    },
+    "rdos-lublin": {
+      "base_url": "https://www.gov.pl/web/rdos-lublin",
+      "paths": ["/obwieszczenia-i-zawiadomienia"]
+    }
+  },
+  "gdos_paths": {
+    "gdos": {
+      "base_url": "https://www.gov.pl/web/gdos",
+      "paths": ["/obwieszczenia-i-zawiadomienia"],
+      "selectors": {
+        "list": ".article-area article, .news-list li",
+        "title": "h2, h3, a",
+        "link": "a[href]"
+      }
+    }
+  },
+  "verified_sources_extra": {
+    "warszawa": {
+      "bip_url": "https://bip.warszawa.pl",
+      "env_paths": ["/karty-informacyjne-srodowisko", "/ogloszenia-obwieszczenia-zawiadomienia"],
+      "has_pagination": true
+    },
+    "lodz": {
+      "bip_url": "https://bip.uml.lodz.pl",
+      "env_paths": ["/wykaz-danych-o-srodowisku", "/obwieszczenia"]
+    },
+    "lublin": {
+      "bip_url": "https://bip.lublin.eu",
+      "env_paths": ["/obwieszczenia", "/decyzje-srodowiskowe"]
+    }
+  },
+  "verified_gminy": {
+    "grodzisk-mazowiecki": {
+      "bip_url": "https://bip.grodzisk.pl",
+      "env_paths": ["/m,3891,obwieszczenia.html"]
+    },
+    "stryków": {
+      "bip_url": "https://bip.strykow.pl",
+      "env_paths": ["/kategorie/322-obwieszczenia-decyzje-srodowiskowe"]
+    },
+    "tarnowo-podgorne": {
+      "bip_url": "http://bip2.tarnowo-podgorne.pl",
+      "env_paths": ["/6058"]
+    },
+    "komorniki": {
+      "bip_url": "https://bip2.komorniki.pl",
+      "env_paths": ["/317-wydzial-ochrony-srodowiska.html"]
+    },
+    "katy-wroclawskie": {
+      "bip_url": "https://bip.katywroclawskie.pl",
+      "env_paths": ["/artykul/rejestr-wydanych-decyzji-o-srodowiskowcyh-uwarunkowaniach"]
+    }
+  },
+  "discovery_patterns": {
+    "common_env_section_keywords": [
+      "środowisk", "ochrona środowiska", "ochrony środowiska",
+      "obwieszczen", "ogłoszen", "decyzje", "decyzji",
+      "klimat", "ekologia", "tablica ogłoszeń",
+      "karty informacyjne", "wykaz danych", "publicznie dostępny",
+      "rejestr decyzji", "wydział ochrony"
+    ],
+    "common_paths_to_try": [
+      "/obwieszczenia",
+      "/decyzje-srodowiskowe",
+      "/ochrona-srodowiska",
+      "/srodowisko",
+      "/ogloszenia",
+      "/tablica-ogloszen",
+      "/kategorie/ochrona-srodowiska",
+      "/kategorie/decyzje-srodowiskowe",
+      "/kategorie/obwieszczenia",
+      "/m,obwieszczenia.html",
+      "/wydzial-ochrony-srodowiska",
+      "/artykul/rejestr-wydanych-decyzji",
+      "/karty-informacyjne-srodowisko",
+      "/wykaz-danych-o-srodowisku",
+      "/ogloszenia-obwieszczenia-zawiadomienia",
+      "/decyzje-o-srodowiskowych-uwarunkowaniach",
+      "/publicznie-dostepny-wykaz"
+    ],
+    "url_number_patterns": [
+      "/kategorie/\\d+-ochrona-srodowiska",
+      "/kategorie/\\d+-decyzje-srodowiskowe",
+      "/kategorie/\\d+-obwieszczenia",
+      "/m,\\d+,obwieszczenia",
+      "/\\d+,ochrona-srodowiska",
+      "/\\d+,decyzje-srodowiskowe"
+    ],
+    "menu_selectors": [
+      "nav a", ".menu a", "#menu a", ".sidebar a",
+      ".left-menu a", ".main-menu a", "ul.nav a"
+    ],
+    "env_url_patterns": [
+      "srodowisk", "environment", "ecology", "ekolog",
+      "obwieszcz", "decyzj", "karty-informacyjne",
+      "wykaz-danych", "6220", "ochrona", "rejestr"
+    ]
+  }
+}

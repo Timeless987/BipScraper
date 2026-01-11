@@ -1,0 +1,23 @@
+# BIP Search - Wyszukiwarka decyzji środowiskowych
+# Zależności Python
+
+# Framework webowy
+flask>=3.0.0
+
+# HTTP requests
+requests>=2.31.0
+aiohttp>=3.9.0
+
+# Parsowanie HTML
+beautifulsoup4>=4.12.0
+lxml>=5.0.0
+
+# Przetwarzanie danych i eksport
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# Obsługa dat
+python-dateutil>=2.8.0
+
+# Async
+aiofiles>=23.0.0

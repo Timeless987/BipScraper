@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIP Search - Wyszukiwarka decyzji środowiskowych</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Wyszukiwarka decyzji środowiskowych BIP</h1>
+            <p class="subtitle">Przeszukaj {{ sources_count }} źródeł BIP, RDOŚ i GDOŚ w Polsce</p>
+        </header>
+
+        <!-- Formularz wyszukiwania -->
+        <section id="search-form" class="card">
+            <h2>Parametry wyszukiwania</h2>
+
+            <!-- Profil wyszukiwania -->
+            <div class="form-group">
+                <label>Zakres wyszukiwania:</label>
+                <div class="profile-cards">
+                    {% for profile in profiles %}
+                    <label class="profile-card {% if profile.id == 'cities' %}selected{% endif %}">
+                        <input type="radio" name="profile" value="{{ profile.id }}" {% if profile.id == 'cities' %}checked{% endif %}>
+                        <div class="profile-content">
+                            <strong>{{ profile.name }}</strong>
+                            <span class="profile-desc">{{ profile.description }}</span>
+                            <span class="profile-time">{{ profile.estimated_time }}</span>
+                        </div>
+                    </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Zakres dat -->
+            <div class="form-group">
+                <label>Zakres dat:</label>
+                <div class="date-presets">
+                    <button type="button" class="btn-preset" onclick="setDateRange(7)">Ostatnie 7 dni</button>
+                    <button type="button" class="btn-preset active" onclick="setDateRange(14)">Ostatnie 14 dni</button>
+                    <button type="button" class="btn-preset" onclick="setDateRange(30)">Ostatnie 30 dni</button>
+                    <button type="button" class="btn-preset" onclick="setDateRange(0)">Własny zakres</button>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date-from">Data od:</label>
+                    <input type="date" id="date-from" value="{{ date_from }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="date-to">Data do:</label>
+                    <input type="date" id="date-to" value="{{ date_to }}" required>
+                </div>
+            </div>
+
+            <!-- Województwa (opcjonalne filtrowanie) -->
+            <div class="form-group">
+                <label>Województwa <small>(puste = wszystkie)</small>:</label>
+                <div class="checkbox-group">
+                    {% for voivodeship in voivodeships %}
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="voivodeship" value="{{ voivodeship }}">
+                        {{ voivodeship }}
+                    </label>
+                    {% endfor %}
+                </div>
+                <div class="checkbox-actions">
+                    <button type="button" class="btn-small" onclick="selectAllVoivodeships()">Zaznacz wszystkie</button>
+                    <button type="button" class="btn-small" onclick="deselectAllVoivodeships()">Odznacz wszystkie</button>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Branże:</label>
+                <div class="checkbox-group">
+                    {% for industry in industries %}
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="industry" value="{{ industry }}" checked>
+                        {{ industry }}
+                    </label>
+                    {% endfor %}
+                </div>
+                <div class="checkbox-actions">
+                    <button type="button" class="btn-small" onclick="selectAllIndustries()">Zaznacz wszystkie</button>
+                    <button type="button" class="btn-small" onclick="deselectAllIndustries()">Odznacz wszystkie</button>
+                </div>
+            </div>
+
+            <!-- Weryfikacja AI -->
+            <div class="form-group ai-verification-group">
+                <label class="checkbox-label ai-toggle">
+                    <input type="checkbox" id="use-ai-verification" onchange="updateAIInfo()">
+                    <span class="ai-label">
+                        Weryfikacja AI (Claude)
+                        <span id="ai-badge" class="ai-badge unavailable">Niedostepne</span>
+                    </span>
+                </label>
+                <p id="ai-description" class="ai-description">
+                    AI przeanalizuje wyniki i odfiltruje te, które nie dotycza decyzji srodowiskowych.
+                    Zwieksza jakosc wynikow, ale wymaga klucza API Anthropic.
+                </p>
+                <p id="ai-cost" class="ai-cost hidden">
+                    Szacunkowy koszt: <span id="ai-cost-value">~$0.02</span> za 100 wynikow
+                </p>
+            </div>
+
+            <button id="search-btn" class="btn-primary" onclick="startSearch()">
+                Rozpocznij wyszukiwanie
+            </button>
+        </section>
+
+        <!-- Pasek postępu -->
+        <section id="progress-section" class="card hidden">
+            <h2>Postęp wyszukiwania</h2>
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="progress-percent">0%</span>
+                    <span id="progress-count">(0/0)</span>
+                </div>
+            </div>
+            <p id="progress-current" class="progress-current">Przygotowywanie...</p>
+            <p id="progress-time" class="progress-time"></p>
+            <button id="stop-btn" class="btn-danger" onclick="stopSearch()">
+                Przerwij wyszukiwanie
+            </button>
+        </section>
+
+        <!-- Wyniki -->
+        <section id="results-section" class="card hidden">
+            <div class="results-header">
+                <h2>Wyniki wyszukiwania</h2>
+                <div class="results-actions">
+                    <span id="results-count" class="results-count"></span>
+                    <button class="btn-secondary" onclick="exportResults('csv')">Pobierz CSV</button>
+                    <button class="btn-secondary" onclick="exportResults('xlsx')">Pobierz Excel</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="results-table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(0)">Lokalizacja</th>
+                            <th onclick="sortTable(1)">Data</th>
+                            <th onclick="sortTable(2)">Etap</th>
+                            <th onclick="sortTable(3)">Branża</th>
+                            <th onclick="sortTable(4)">Przedsięwzięcie</th>
+                            <th onclick="sortTable(5)">Sygnatura</th>
+                            <th>Źródło</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="pagination" class="pagination"></div>
+        </section>
+
+        <!-- Brak wyników -->
+        <section id="no-results-section" class="card hidden">
+            <div class="no-results">
+                <h2>Brak wyników</h2>
+                <p>Nie znaleziono decyzji środowiskowych spełniających podane kryteria.</p>
+                <p>Spróbuj:</p>
+                <ul>
+                    <li>Rozszerzyć zakres dat</li>
+                    <li>Zaznaczyć więcej branż</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Błąd -->
+        <section id="error-section" class="card hidden">
+            <div class="error">
+                <h2>Wystąpił błąd</h2>
+                <p id="error-message"></p>
+                <button class="btn-primary" onclick="resetSearch()">Spróbuj ponownie</button>
+            </div>
+        </section>
+
+        <footer>
+            <p>BIP Search v1.0 | Dane pochodzą z publicznych Biuletynów Informacji Publicznej</p>
+        </footer>
+    </div>
+
+    <script>
+        let currentSessionId = null;
+        let currentResults = [];
+        let currentPage = 1;
+        const resultsPerPage = 50;
+        let sortColumn = -1;
+        let sortAsc = true;
+
+        let aiEnabled = false;
+        let aiCostEstimate = null;
+
+        // Inicjalizacja
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obsługa kart profili
+            document.querySelectorAll('.profile-card input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    document.querySelectorAll('.profile-card').forEach(card => {
+                        card.classList.remove('selected');
+                    });
+                    this.closest('.profile-card').classList.add('selected');
+                });
+            });
+
+            // Sprawdź dostępność AI
+            checkAIStatus();
+        });
+
+        async function checkAIStatus() {
+            try {
+                const response = await fetch('/ai-status');
+                const data = await response.json();
+
+                aiEnabled = data.enabled;
+                aiCostEstimate = data.cost_estimate;
+
+                const badge = document.getElementById('ai-badge');
+                const checkbox = document.getElementById('use-ai-verification');
+
+                if (aiEnabled) {
+                    badge.textContent = 'Dostepne';
+                    badge.className = 'ai-badge available';
+                    checkbox.disabled = false;
+
+                    if (aiCostEstimate) {
+                        document.getElementById('ai-cost-value').textContent =
+                            `~$${aiCostEstimate.estimated_cost_usd} (~${aiCostEstimate.estimated_cost_pln} PLN)`;
+                    }
+                } else {
+                    badge.textContent = 'Niedostepne';
+                    badge.className = 'ai-badge unavailable';
+                    checkbox.disabled = true;
+                    checkbox.checked = false;
+                }
+            } catch (error) {
+                console.error('Blad sprawdzania AI:', error);
+            }
+        }
+
+        function updateAIInfo() {
+            const checkbox = document.getElementById('use-ai-verification');
+            const costInfo = document.getElementById('ai-cost');
+
+            if (checkbox.checked && aiEnabled) {
+                costInfo.classList.remove('hidden');
+            } else {
+                costInfo.classList.add('hidden');
+            }
+        }
+
+        function setDateRange(days) {
+            // Aktualizuj aktywny przycisk
+            document.querySelectorAll('.btn-preset').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (days === 0) {
+                // Własny zakres - nie zmieniaj dat
+                return;
+            }
+
+            const today = new Date();
+            const fromDate = new Date();
+            fromDate.setDate(today.getDate() - days);
+
+            document.getElementById('date-to').value = today.toISOString().split('T')[0];
+            document.getElementById('date-from').value = fromDate.toISOString().split('T')[0];
+        }
+
+        function getSelectedProfile() {
+            const selected = document.querySelector('input[name="profile"]:checked');
+            return selected ? selected.value : 'full';
+        }
+
+        function selectAllIndustries() {
+            document.querySelectorAll('input[name="industry"]').forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllIndustries() {
+            document.querySelectorAll('input[name="industry"]').forEach(cb => cb.checked = false);
+        }
+
+        function selectAllVoivodeships() {
+            document.querySelectorAll('input[name="voivodeship"]').forEach(cb => cb.checked = true);
+        }
+
+        function deselectAllVoivodeships() {
+            document.querySelectorAll('input[name="voivodeship"]').forEach(cb => cb.checked = false);
+        }
+
+        function getSelectedIndustries() {
+            const checkboxes = document.querySelectorAll('input[name="industry"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        function getSelectedVoivodeships() {
+            const checkboxes = document.querySelectorAll('input[name="voivodeship"]:checked');
+            return Array.from(checkboxes).map(cb => cb.value);
+        }
+
+        async function startSearch() {
+            const dateFrom = document.getElementById('date-from').value;
+            const dateTo = document.getElementById('date-to').value;
+            const industries = getSelectedIndustries();
+            const profile = getSelectedProfile();
+            const voivodeships = getSelectedVoivodeships();
+            const useAI = document.getElementById('use-ai-verification').checked;
+
+            if (!dateFrom || !dateTo) {
+                alert('Proszę wybrać zakres dat');
+                return;
+            }
+
+            if (industries.length === 0) {
+                alert('Proszę wybrać przynajmniej jedną branżę');
+                return;
+            }
+
+            // Ukryj poprzednie wyniki
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('no-results-section').classList.add('hidden');
+            document.getElementById('error-section').classList.add('hidden');
+
+            // Pokaż pasek postępu
+            document.getElementById('progress-section').classList.remove('hidden');
+            document.getElementById('search-btn').disabled = true;
+            document.getElementById('search-btn').textContent = 'Wyszukiwanie...';
+
+            try {
+                // Rozpocznij wyszukiwanie
+                const response = await fetch('/search', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        date_from: dateFrom,
+                        date_to: dateTo,
+                        industries: industries,
+                        profile: profile,
+                        voivodeships: voivodeships,
+                        use_ai_verification: useAI
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                currentSessionId = data.session_id;
+
+                // Rozpocznij śledzenie postępu
+                trackProgress();
+
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        function trackProgress() {
+            const eventSource = new EventSource(`/stream/${currentSessionId}`);
+            const startTime = Date.now();
+
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+
+                if (data.error) {
+                    eventSource.close();
+                    showError(data.error);
+                    return;
+                }
+
+                // Status weryfikacji AI
+                if (data.status === 'verifying') {
+                    document.getElementById('progress-fill').style.width = '100%';
+                    document.getElementById('progress-percent').textContent = 'AI';
+                    document.getElementById('progress-count').textContent = `(${data.raw_results_count} wynikow do weryfikacji)`;
+                    document.getElementById('progress-current').textContent = data.current_source || 'Weryfikacja AI...';
+                    document.getElementById('progress-time').textContent = 'Analiza wynikow przez Claude AI...';
+                } else {
+                    // Aktualizuj pasek postępu
+                    const percent = data.total > 0 ? Math.round((data.progress / data.total) * 100) : 0;
+                    document.getElementById('progress-fill').style.width = percent + '%';
+                    document.getElementById('progress-percent').textContent = percent + '%';
+                    document.getElementById('progress-count').textContent = `(${data.progress}/${data.total})`;
+                    document.getElementById('progress-current').textContent =
+                        data.current_source ? `Przeszukuje: ${data.current_source}` : 'Przygotowywanie...';
+
+                    // Szacowany czas
+                    if (data.progress > 0 && data.total > 0) {
+                        const elapsed = (Date.now() - startTime) / 1000;
+                        const rate = data.progress / elapsed;
+                        const remaining = (data.total - data.progress) / rate;
+                        const remainingMin = Math.floor(remaining / 60);
+                        const remainingSec = Math.floor(remaining % 60);
+                        document.getElementById('progress-time').textContent =
+                            `Szacowany pozostaly czas: ${remainingMin}m ${remainingSec}s`;
+                    }
+                }
+
+                // Sprawdź czy zakończone
+                if (data.status === 'completed') {
+                    eventSource.close();
+                    loadResults();
+                } else if (data.status === 'error') {
+                    eventSource.close();
+                    showError(data.error || 'Nieznany blad');
+                }
+            };
+
+            eventSource.onerror = function() {
+                eventSource.close();
+                // Spróbuj pobrać wyniki mimo błędu połączenia
+                setTimeout(loadResults, 1000);
+            };
+        }
+
+        async function loadResults() {
+            try {
+                const response = await fetch(`/results/${currentSessionId}`);
+                const data = await response.json();
+
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+
+                currentResults = data.results;
+                document.getElementById('progress-section').classList.add('hidden');
+
+                if (currentResults.length === 0) {
+                    document.getElementById('no-results-section').classList.remove('hidden');
+                } else {
+                    displayResults();
+                    document.getElementById('results-section').classList.remove('hidden');
+                }
+
+            } catch (error) {
+                showError(error.message);
+            } finally {
+                document.getElementById('search-btn').disabled = false;
+                document.getElementById('search-btn').textContent = 'Rozpocznij wyszukiwanie';
+            }
+        }
+
+        function displayResults() {
+            const tbody = document.getElementById('results-body');
+            tbody.innerHTML = '';
+
+            document.getElementById('results-count').textContent =
+                `Znaleziono ${currentResults.length} wyników`;
+
+            // Sortowanie
+            let sortedResults = [...currentResults];
+            if (sortColumn >= 0) {
+                const keys = ['lokalizacja', 'data_obwieszczenia', 'etap_postepowania',
+                              'branza', 'przedsiewziecie', 'sygnatura'];
+                const key = keys[sortColumn];
+                sortedResults.sort((a, b) => {
+                    const valA = a[key] || '';
+                    const valB = b[key] || '';
+                    return sortAsc ? valA.localeCompare(valB) : valB.localeCompare(valA);
+                });
+            }
+
+            // Paginacja
+            const start = (currentPage - 1) * resultsPerPage;
+            const end = start + resultsPerPage;
+            const pageResults = sortedResults.slice(start, end);
+
+            pageResults.forEach(result => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${escapeHtml(result.lokalizacja)}</td>
+                    <td>${escapeHtml(result.data_obwieszczenia)}</td>
+                    <td><span class="badge badge-${getStageClass(result.etap_postepowania)}">${escapeHtml(result.etap_postepowania)}</span></td>
+                    <td>${escapeHtml(result.branza)}</td>
+                    <td class="text-truncate" title="${escapeHtml(result.przedsiewziecie)}">${escapeHtml(result.przedsiewziecie)}</td>
+                    <td>${escapeHtml(result.sygnatura)}</td>
+                    <td><a href="${escapeHtml(result.zrodlo_url)}" target="_blank" rel="noopener">Zobacz</a></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            // Paginacja
+            updatePagination(sortedResults.length);
+        }
+
+        function updatePagination(totalResults) {
+            const totalPages = Math.ceil(totalResults / resultsPerPage);
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+
+            if (totalPages <= 1) return;
+
+            // Poprzednia strona
+            if (currentPage > 1) {
+                const prevBtn = document.createElement('button');
+                prevBtn.textContent = '← Poprzednia';
+                prevBtn.onclick = () => { currentPage--; displayResults(); };
+                pagination.appendChild(prevBtn);
+            }
+
+            // Numery stron
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                    const btn = document.createElement('button');
+                    btn.textContent = i;
+                    btn.className = i === currentPage ? 'active' : '';
+                    btn.onclick = () => { currentPage = i; displayResults(); };
+                    pagination.appendChild(btn);
+                } else if (i === currentPage - 3 || i === currentPage + 3) {
+                    const span = document.createElement('span');
+                    span.textContent = '...';
+                    pagination.appendChild(span);
+                }
+            }
+
+            // Następna strona
+            if (currentPage < totalPages) {
+                const nextBtn = document.createElement('button');
+                nextBtn.textContent = 'Następna →';
+                nextBtn.onclick = () => { currentPage++; displayResults(); };
+                pagination.appendChild(nextBtn);
+            }
+        }
+
+        function sortTable(column) {
+            if (sortColumn === column) {
+                sortAsc = !sortAsc;
+            } else {
+                sortColumn = column;
+                sortAsc = true;
+            }
+            displayResults();
+        }
+
+        function getStageClass(stage) {
+            const classes = {
+                'Wniosek': 'info',
+                'Wszczęcie postępowania': 'warning',
+                'Zebranie materiału dowodowego': 'secondary',
+                'Decyzja': 'success',
+                'Zmiana decyzji': 'primary'
+            };
+            return classes[stage] || 'secondary';
+        }
+
+        function exportResults(format) {
+            if (!currentSessionId) return;
+            window.location.href = `/export/${currentSessionId}/${format}`;
+        }
+
+        function showError(message) {
+            document.getElementById('progress-section').classList.add('hidden');
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('error-section').classList.remove('hidden');
+            document.getElementById('search-btn').disabled = false;
+            document.getElementById('search-btn').textContent = 'Rozpocznij wyszukiwanie';
+        }
+
+        function resetSearch() {
+            document.getElementById('error-section').classList.add('hidden');
+            document.getElementById('progress-section').classList.add('hidden');
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('no-results-section').classList.add('hidden');
+            currentSessionId = null;
+            currentResults = [];
+            currentPage = 1;
+        }
+
+        async function stopSearch() {
+            if (!currentSessionId) return;
+
+            try {
+                await fetch(`/stop/${currentSessionId}`, { method: 'POST' });
+                document.getElementById('progress-current').textContent = 'Przerywanie...';
+                document.getElementById('stop-btn').disabled = true;
+            } catch (error) {
+                console.error('Blad zatrzymywania:', error);
+            }
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>

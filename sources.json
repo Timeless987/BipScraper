@@ -1,0 +1,328 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "last_updated": "2026-01-09",
+    "total_sources": 2895,
+    "description": "Baza źródeł BIP dla wyszukiwarki decyzji środowiskowych"
+  },
+  "gdos": [
+    {
+      "id": "gdos",
+      "name": "Generalna Dyrekcja Ochrony Środowiska",
+      "type": "gdos",
+      "voivodeship": "mazowieckie",
+      "url": "https://www.gov.pl/web/gdos",
+      "bip_url": "https://www.gov.pl/web/gdos/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ],
+      "patterns": {
+        "list_selector": ".article-area article, .news-list li",
+        "title_selector": "h2, h3, .title, a",
+        "date_selector": ".date, time, .news-date",
+        "link_selector": "a[href]"
+      }
+    }
+  ],
+  "rdos": [
+    {
+      "id": "rdos-warszawa",
+      "name": "RDOŚ Warszawa",
+      "type": "rdos",
+      "voivodeship": "mazowieckie",
+      "url": "https://www.gov.pl/web/rdos-warszawa",
+      "bip_url": "https://www.gov.pl/web/rdos-warszawa/obwieszczenia-i-zawiadomienia-rok-2025",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia-rok-2026",
+        "/obwieszczenia-i-zawiadomienia-rok-2025"
+      ]
+    },
+    {
+      "id": "rdos-krakow",
+      "name": "RDOŚ Kraków",
+      "type": "rdos",
+      "voivodeship": "małopolskie",
+      "url": "https://www.gov.pl/web/rdos-krakow",
+      "bip_url": "https://www.gov.pl/web/rdos-krakow/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-gdansk",
+      "name": "RDOŚ Gdańsk",
+      "type": "rdos",
+      "voivodeship": "pomorskie",
+      "url": "https://www.gov.pl/web/rdos-gdansk",
+      "bip_url": "https://www.gov.pl/web/rdos-gdansk/rok-2025",
+      "search_paths": [
+        "/rok-2026",
+        "/rok-2025"
+      ]
+    },
+    {
+      "id": "rdos-poznan",
+      "name": "RDOŚ Poznań",
+      "type": "rdos",
+      "voivodeship": "wielkopolskie",
+      "url": "https://www.gov.pl/web/rdos-poznan",
+      "bip_url": "https://www.gov.pl/web/rdos-poznan/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-wroclaw",
+      "name": "RDOŚ Wrocław",
+      "type": "rdos",
+      "voivodeship": "dolnośląskie",
+      "url": "https://www.gov.pl/web/rdos-wroclaw",
+      "bip_url": "https://www.gov.pl/web/rdos-wroclaw/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-lodz",
+      "name": "RDOŚ Łódź",
+      "type": "rdos",
+      "voivodeship": "łódzkie",
+      "url": "https://www.gov.pl/web/rdos-lodz",
+      "bip_url": "https://www.gov.pl/web/rdos-lodz/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-katowice",
+      "name": "RDOŚ Katowice",
+      "type": "rdos",
+      "voivodeship": "śląskie",
+      "url": "https://www.gov.pl/web/rdos-katowice",
+      "bip_url": "https://www.gov.pl/web/rdos-katowice/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-lublin",
+      "name": "RDOŚ Lublin",
+      "type": "rdos",
+      "voivodeship": "lubelskie",
+      "url": "https://www.gov.pl/web/rdos-lublin",
+      "bip_url": "https://www.gov.pl/web/rdos-lublin/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-bialystok",
+      "name": "RDOŚ Białystok",
+      "type": "rdos",
+      "voivodeship": "podlaskie",
+      "url": "https://www.gov.pl/web/rdos-bialystok",
+      "bip_url": "https://www.gov.pl/web/rdos-bialystok/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-rzeszow",
+      "name": "RDOŚ Rzeszów",
+      "type": "rdos",
+      "voivodeship": "podkarpackie",
+      "url": "https://www.gov.pl/web/rdos-rzeszow",
+      "bip_url": "https://www.gov.pl/web/rdos-rzeszow/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-kielce",
+      "name": "RDOŚ Kielce",
+      "type": "rdos",
+      "voivodeship": "świętokrzyskie",
+      "url": "https://www.gov.pl/web/rdos-kielce",
+      "bip_url": "https://www.gov.pl/web/rdos-kielce/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-olsztyn",
+      "name": "RDOŚ Olsztyn",
+      "type": "rdos",
+      "voivodeship": "warmińsko-mazurskie",
+      "url": "https://www.gov.pl/web/rdos-olsztyn",
+      "bip_url": "https://www.gov.pl/web/rdos-olsztyn/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-szczecin",
+      "name": "RDOŚ Szczecin",
+      "type": "rdos",
+      "voivodeship": "zachodniopomorskie",
+      "url": "https://www.gov.pl/web/rdos-szczecin",
+      "bip_url": "https://www.gov.pl/web/rdos-szczecin/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-bydgoszcz",
+      "name": "RDOŚ Bydgoszcz",
+      "type": "rdos",
+      "voivodeship": "kujawsko-pomorskie",
+      "url": "https://www.gov.pl/web/rdos-bydgoszcz",
+      "bip_url": "https://www.gov.pl/web/rdos-bydgoszcz/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-opole",
+      "name": "RDOŚ Opole",
+      "type": "rdos",
+      "voivodeship": "opolskie",
+      "url": "https://www.gov.pl/web/rdos-opole",
+      "bip_url": "https://www.gov.pl/web/rdos-opole/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    },
+    {
+      "id": "rdos-gorzow",
+      "name": "RDOŚ Gorzów Wielkopolski",
+      "type": "rdos",
+      "voivodeship": "lubuskie",
+      "url": "https://www.gov.pl/web/rdos-gorzowwielkopolski",
+      "bip_url": "https://www.gov.pl/web/rdos-gorzowwielkopolski/obwieszczenia-i-zawiadomienia",
+      "search_paths": [
+        "/obwieszczenia-i-zawiadomienia"
+      ]
+    }
+  ],
+  "miasta_na_prawach_powiatu": [
+    {"id": "warszawa", "name": "Warszawa", "voivodeship": "mazowieckie", "bip_url": "https://bip.warszawa.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "krakow", "name": "Kraków", "voivodeship": "małopolskie", "bip_url": "https://www.bip.krakow.pl", "env_path": "/?dok_id=30618"},
+    {"id": "wroclaw", "name": "Wrocław", "voivodeship": "dolnośląskie", "bip_url": "https://bip.um.wroc.pl", "env_path": "/artykuly/385/wydane-decyzje-o-srodowiskowych-uwarunkowaniach"},
+    {"id": "lodz", "name": "Łódź", "voivodeship": "łódzkie", "bip_url": "https://bip.uml.lodz.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "poznan", "name": "Poznań", "voivodeship": "wielkopolskie", "bip_url": "https://bip.poznan.pl", "env_path": "/bip/dane-o-srodowisku-i-ochronie/W/"},
+    {"id": "gdansk", "name": "Gdańsk", "voivodeship": "pomorskie", "bip_url": "https://bip.gdansk.pl", "env_path": "/urzad-miejski/Decyzje-o-srodowiskowych-uwarunkowaniach,a,108376"},
+    {"id": "szczecin", "name": "Szczecin", "voivodeship": "zachodniopomorskie", "bip_url": "https://bip.um.szczecin.pl", "env_path": "/chapter_11089.asp"},
+    {"id": "bydgoszcz", "name": "Bydgoszcz", "voivodeship": "kujawsko-pomorskie", "bip_url": "https://bip.um.bydgoszcz.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "lublin", "name": "Lublin", "voivodeship": "lubelskie", "bip_url": "https://bip.lublin.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "bialystok", "name": "Białystok", "voivodeship": "podlaskie", "bip_url": "https://bip.bialystok.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "katowice", "name": "Katowice", "voivodeship": "śląskie", "bip_url": "https://bip.katowice.eu", "env_path": "/ogloszenia/tablicaogloszen/default.aspx?idt=477"},
+    {"id": "gdynia", "name": "Gdynia", "voivodeship": "pomorskie", "bip_url": "https://bip.um.gdynia.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "czestochowa", "name": "Częstochowa", "voivodeship": "śląskie", "bip_url": "https://bip.czestochowa.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "radom", "name": "Radom", "voivodeship": "mazowieckie", "bip_url": "https://bip.radom.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "torun", "name": "Toruń", "voivodeship": "kujawsko-pomorskie", "bip_url": "https://bip.torun.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "sosnowiec", "name": "Sosnowiec", "voivodeship": "śląskie", "bip_url": "https://bip.um.sosnowiec.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "kielce", "name": "Kielce", "voivodeship": "świętokrzyskie", "bip_url": "https://bip.kielce.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "rzeszow", "name": "Rzeszów", "voivodeship": "podkarpackie", "bip_url": "https://bip.erzeszow.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "gliwice", "name": "Gliwice", "voivodeship": "śląskie", "bip_url": "https://bip.gliwice.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "zabrze", "name": "Zabrze", "voivodeship": "śląskie", "bip_url": "https://bip.um.zabrze.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "olsztyn", "name": "Olsztyn", "voivodeship": "warmińsko-mazurskie", "bip_url": "https://bip.olsztyn.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "bielsko-biala", "name": "Bielsko-Biała", "voivodeship": "śląskie", "bip_url": "https://bip.um.bielsko.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "bytom", "name": "Bytom", "voivodeship": "śląskie", "bip_url": "https://bip.um.bytom.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "zielona-gora", "name": "Zielona Góra", "voivodeship": "lubuskie", "bip_url": "https://bip.zielonagora.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "rybnik", "name": "Rybnik", "voivodeship": "śląskie", "bip_url": "https://bip.um.rybnik.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "ruda-slaska", "name": "Ruda Śląska", "voivodeship": "śląskie", "bip_url": "https://bip.rudaslaska.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "opole", "name": "Opole", "voivodeship": "opolskie", "bip_url": "https://bip.um.opole.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "tychy", "name": "Tychy", "voivodeship": "śląskie", "bip_url": "https://bip.umtychy.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "gorzow-wielkopolski", "name": "Gorzów Wielkopolski", "voivodeship": "lubuskie", "bip_url": "https://bip.gorzow.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "dabrowa-gornicza", "name": "Dąbrowa Górnicza", "voivodeship": "śląskie", "bip_url": "https://bip.dabrowa-gornicza.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "elblag", "name": "Elbląg", "voivodeship": "warmińsko-mazurskie", "bip_url": "https://bip.elblag.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "plock", "name": "Płock", "voivodeship": "mazowieckie", "bip_url": "https://bip.plock.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "walbrzych", "name": "Wałbrzych", "voivodeship": "dolnośląskie", "bip_url": "https://bip.um.walbrzych.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "wloclawek", "name": "Włocławek", "voivodeship": "kujawsko-pomorskie", "bip_url": "https://bip.um.wloclawek.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "tarnow", "name": "Tarnów", "voivodeship": "małopolskie", "bip_url": "https://bip.malopolska.pl/umtarnow", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "chorzow", "name": "Chorzów", "voivodeship": "śląskie", "bip_url": "https://bip.chorzow.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "koszalin", "name": "Koszalin", "voivodeship": "zachodniopomorskie", "bip_url": "https://bip.koszalin.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "kalisz", "name": "Kalisz", "voivodeship": "wielkopolskie", "bip_url": "https://bip.kalisz.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "legnica", "name": "Legnica", "voivodeship": "dolnośląskie", "bip_url": "https://bip.legnica.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "grudziadz", "name": "Grudziądz", "voivodeship": "kujawsko-pomorskie", "bip_url": "https://bip.grudziadz.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "jaworzno", "name": "Jaworzno", "voivodeship": "śląskie", "bip_url": "https://bip.jaworzno.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "slupsk", "name": "Słupsk", "voivodeship": "pomorskie", "bip_url": "https://bip.um.slupsk.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "jastrzebie-zdroj", "name": "Jastrzębie-Zdrój", "voivodeship": "śląskie", "bip_url": "https://bip.jastrzebie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "nowy-sacz", "name": "Nowy Sącz", "voivodeship": "małopolskie", "bip_url": "https://bip.nowysacz.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "jelenia-gora", "name": "Jelenia Góra", "voivodeship": "dolnośląskie", "bip_url": "https://bip.jeleniagora.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "siedlce", "name": "Siedlce", "voivodeship": "mazowieckie", "bip_url": "https://bip.siedlce.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "myslowice", "name": "Mysłowice", "voivodeship": "śląskie", "bip_url": "https://bip.myslowice.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "konin", "name": "Konin", "voivodeship": "wielkopolskie", "bip_url": "https://bip.konin.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "piotrkow-trybunalski", "name": "Piotrków Trybunalski", "voivodeship": "łódzkie", "bip_url": "https://bip.piotrkow.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "lubin", "name": "Lubin", "voivodeship": "dolnośląskie", "bip_url": "https://bip.um.lubin.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "inowroclaw", "name": "Inowrocław", "voivodeship": "kujawsko-pomorskie", "bip_url": "https://bip.inowroclaw.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "ostrow-wielkopolski", "name": "Ostrów Wielkopolski", "voivodeship": "wielkopolskie", "bip_url": "https://bip.ostrow-wielkopolski.um.gov.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "suwalki", "name": "Suwałki", "voivodeship": "podlaskie", "bip_url": "https://bip.um.suwalki.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "stargard", "name": "Stargard", "voivodeship": "zachodniopomorskie", "bip_url": "https://bip.stargard.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "gniezno", "name": "Gniezno", "voivodeship": "wielkopolskie", "bip_url": "https://bip.gniezno.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "ostroleka", "name": "Ostrołęka", "voivodeship": "mazowieckie", "bip_url": "https://bip.um.ostroleka.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "siemianowice-slaskie", "name": "Siemianowice Śląskie", "voivodeship": "śląskie", "bip_url": "https://bip.siemianowice.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "glogow", "name": "Głogów", "voivodeship": "dolnośląskie", "bip_url": "https://bip.glogow.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "pabianice", "name": "Pabianice", "voivodeship": "łódzkie", "bip_url": "https://bip.um.pabianice.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "leszno", "name": "Leszno", "voivodeship": "wielkopolskie", "bip_url": "https://bip.leszno.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "zory", "name": "Żory", "voivodeship": "śląskie", "bip_url": "https://bip.zory.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "pruszków", "name": "Pruszków", "voivodeship": "mazowieckie", "bip_url": "https://bip.pruszkow.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "lomza", "name": "Łomża", "voivodeship": "podlaskie", "bip_url": "https://bip.um.lomza.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "tarnobrzeg", "name": "Tarnobrzeg", "voivodeship": "podkarpackie", "bip_url": "https://bip.tarnobrzeg.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "przemysl", "name": "Przemyśl", "voivodeship": "podkarpackie", "bip_url": "https://bip.przemysl.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "stalowa-wola", "name": "Stalowa Wola", "voivodeship": "podkarpackie", "bip_url": "https://bip.stalowawola.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"}
+  ],
+  "voivodeships": [
+    {"id": "woj-dolnoslaskie", "name": "Urząd Marszałkowski Dolnośląskie", "voivodeship": "dolnośląskie", "bip_url": "https://bip.dolnyslask.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-kujawsko-pomorskie", "name": "Urząd Marszałkowski Kujawsko-Pomorskie", "voivodeship": "kujawsko-pomorskie", "bip_url": "https://bip.kujawsko-pomorskie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-lubelskie", "name": "Urząd Marszałkowski Lubelskie", "voivodeship": "lubelskie", "bip_url": "https://bip.lubelskie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-lubuskie", "name": "Urząd Marszałkowski Lubuskie", "voivodeship": "lubuskie", "bip_url": "https://bip.lubuskie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-lodzkie", "name": "Urząd Marszałkowski Łódzkie", "voivodeship": "łódzkie", "bip_url": "https://bip.lodzkie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-malopolskie", "name": "Urząd Marszałkowski Małopolskie", "voivodeship": "małopolskie", "bip_url": "https://bip.malopolska.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-mazowieckie", "name": "Urząd Marszałkowski Mazowieckie", "voivodeship": "mazowieckie", "bip_url": "https://bip.mazovia.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-opolskie", "name": "Urząd Marszałkowski Opolskie", "voivodeship": "opolskie", "bip_url": "https://bip.opolskie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-podkarpackie", "name": "Urząd Marszałkowski Podkarpackie", "voivodeship": "podkarpackie", "bip_url": "https://bip.podkarpackie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-podlaskie", "name": "Urząd Marszałkowski Podlaskie", "voivodeship": "podlaskie", "bip_url": "https://bip.podlaskie.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-pomorskie", "name": "Urząd Marszałkowski Pomorskie", "voivodeship": "pomorskie", "bip_url": "https://bip.pomorskie.eu", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-slaskie", "name": "Urząd Marszałkowski Śląskie", "voivodeship": "śląskie", "bip_url": "https://bip.slaskie.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-swietokrzyskie", "name": "Urząd Marszałkowski Świętokrzyskie", "voivodeship": "świętokrzyskie", "bip_url": "https://bip.sejmik.kielce.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-warminsko-mazurskie", "name": "Urząd Marszałkowski Warmińsko-Mazurskie", "voivodeship": "warmińsko-mazurskie", "bip_url": "https://bip.warmia.mazury.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-wielkopolskie", "name": "Urząd Marszałkowski Wielkopolskie", "voivodeship": "wielkopolskie", "bip_url": "https://bip.umww.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"},
+    {"id": "woj-zachodniopomorskie", "name": "Urząd Marszałkowski Zachodniopomorskie", "voivodeship": "zachodniopomorskie", "bip_url": "https://bip.rbip.wzp.pl", "env_path": "/szukaj?q=decyzja+%C5%9Brodowiskowa"}
+  ],
+  "gminy_template": {
+    "description": "Szablon dla pozostałych ~2400 gmin - będą generowane dynamicznie",
+    "url_patterns": [
+      "https://bip.{gmina}.pl",
+      "https://bip.gmina{gmina}.pl",
+      "https://bip.ug{gmina}.pl",
+      "https://bip.um{gmina}.pl",
+      "https://{gmina}.bip.gov.pl",
+      "https://bip.{gmina}.eu",
+      "https://www.bip.{gmina}.pl"
+    ],
+    "search_paths": [
+      "/szukaj?q=decyzja+środowiskowa",
+      "/search?q=decyzja+środowiskowa",
+      "/?s=decyzja+środowiskowa",
+      "/obwieszczenia",
+      "/decyzje-srodowiskowe",
+      "/ochrona-srodowiska"
+    ],
+    "common_selectors": {
+      "list": ".news-list li, .article-list .item, table.list tr, .bip-list .element",
+      "title": "h2 a, h3 a, .title, td:first-child a",
+      "date": ".date, time, .news-date, td.date",
+      "link": "a[href]"
+    }
+  },
+  "powiaty_sample": [
+    {"id": "powiat-warszawa-zachodni", "name": "Powiat Warszawski Zachodni", "voivodeship": "mazowieckie", "bip_url": "https://bip.pwz.pl"},
+    {"id": "powiat-krakowski", "name": "Powiat Krakowski", "voivodeship": "małopolskie", "bip_url": "https://bip.powiat.krakow.pl"},
+    {"id": "powiat-poznanski", "name": "Powiat Poznański", "voivodeship": "wielkopolskie", "bip_url": "https://bip.powiat.poznan.pl"},
+    {"id": "powiat-wroclawski", "name": "Powiat Wrocławski", "voivodeship": "dolnośląskie", "bip_url": "https://bip.powiatwroclawski.pl"},
+    {"id": "powiat-gdanski", "name": "Powiat Gdański", "voivodeship": "pomorskie", "bip_url": "https://bip.powiat-gdanski.pl"}
+  ],
+  "gminy_list_url": "https://api.dane.gov.pl/resources/17363/data",
+  "note": "Pełna lista gmin zostanie pobrana z API GUS przy pierwszym uruchomieniu i zapisana w data/gminy_cache.json"
+}
